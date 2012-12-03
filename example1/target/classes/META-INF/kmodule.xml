@@ -1,0 +1,11 @@
+<kmodule>
+
+  <kbases>
+    <kbase name="org.kie.example1">
+      <ksessions>
+        <ksession name="ksession1"/>
+      </ksessions>
+    </kbase>
+  </kbases>
+  
+</kmodule>
