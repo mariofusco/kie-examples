@@ -1,4 +1,4 @@
-package org.kie.example3;
+package org.kie.example4;
 
 import java.io.File;
 
@@ -6,31 +6,37 @@ import org.kie.builder.KieContainer;
 import org.kie.builder.KieModule;
 import org.kie.builder.KieRepository;
 import org.kie.builder.KieServices;
-import org.kie.builder.impl.ClasspathKieProject;
-import org.kie.builder.impl.KieContainerImpl;
-import org.kie.io.KieResources;
+import org.kie.io.Resource;
 import org.kie.runtime.KieSession;
 
 /**
  * Hello world!
  *
  */
-public class Example3 
+public class Example4 
 {
     public static void main( String[] args )
     {
-        KieServices ks = KieServices.Factory.get();          
+        KieServices ks = KieServices.Factory.get();  
+        
         KieRepository kr = ks.getKieRepository();
         
-        KieModule kModule = kr.addKieModule( ks.getResources().newFileSystemResource( getFile("example1") ) );
-                
-        KieContainer kContainer = ks.getKieContainer( kModule.getGAV() );
+        Resource ex1Res = ks.getResources().newFileSystemResource( getFile("example1") ) ;
+        Resource ex2Res = ks.getResources().newFileSystemResource( getFile("example2") ) ;
         
-        KieSession kSession = kContainer.getKieSession( "ksession1" );
-        Object msg1 = createMessage( kContainer,"Dave", "Hello, HAL. Do you read me, HAL?" );        
+        KieModule kModule = kr.addKieModule(ex1Res,  ex2Res);                
+        KieContainer kContainer = ks.getKieContainer( kModule.getGAV() );
+
+        KieSession kSession = kContainer.getKieSession( "ksession2" );
+        
+        Object msg1 = createMessage(kContainer, "Dave", "Hello, HAL. Do you read me, HAL?");        
         kSession.insert( msg1 );
-        kSession.fireAllRules();
-              
+        kSession.fireAllRules();              
+
+        Object msg2 = createMessage(kContainer, "Dave", "Open the pod bay doors, HAL");        
+        kSession.insert( msg2 );
+        kSession.fireAllRules();              
+        
     }
     
     private static Object createMessage(KieContainer kContainer, String name, String text) {

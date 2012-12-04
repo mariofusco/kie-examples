@@ -11,5 +11,5 @@ end
 rule "rule 2" when
     Message( text == "Hello, HAL. Do you read me, HAL?" )
 then
-    insert( new Message("HAL", "Dave. I read you" ) );
+    insert( new Message("HAL", "Dave. I read you." ) );
 end
