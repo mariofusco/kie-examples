@@ -27,18 +27,22 @@ public class Example3
                 
         KieContainer kContainer = ks.getKieContainer( kModule.getGAV() );
         
-        Object msg = null;
+        KieSession kSession = kContainer.getKieSession( "ksession1" );
+        Object msg1 = createMessage( kContainer,"Dave", "Hello, HAL. Do you read me, HAL?" );        
+        kSession.insert( msg1 );
+        kSession.fireAllRules();
+              
+    }
+    
+    private static Object createMessage(KieContainer kContainer, String name, String text) {
+        Object o = null;
         try {
             Class cl = kContainer.getClassLoader().loadClass( "org.kie.example1.Message" );
-            msg = cl.getConstructor( new Class[] { String.class, String.class } ).newInstance( "Dave", "Hello, HAL. Do you read me, HAL?" );
+            o =  cl.getConstructor( new Class[] { String.class, String.class } ).newInstance( name, text );
         } catch ( Exception e ) {
             e.printStackTrace();
         }
-        
-        KieSession kSession = kContainer.getKieSession( "ksession1" );
-        kSession.insert( msg );
-        kSession.fireAllRules();
-              
+        return o;
     }
     
     public static File getFile(String exampleName) {
