@@ -18,6 +18,10 @@ example4
 - Dynamically loading of external module
 - Loads example1 and example2, demonstrating "includes" working on externally loaded modules.
 
-example5
+Example5
 ========
-- Runtime code generation Combined with external dynamic module loading.
+- Example1 redone as a runtime code generation example
+- 
+Example6
+========
+- Runtime code generation Combined with external dynamic module dependencies.
